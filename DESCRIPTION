@@ -1,0 +1,22 @@
+Package: gnnlab
+Title: Commonly Used Functions for the Lab
+Version: 0.1.0
+Authors@R: person("Greg", "Nishihara", email = "gnishihara@gmail.com", role = c("aut", "cre"))
+Maintainer: Greg Nishihara <gnishihara@gmail.com>
+Description: Many functions to read the data loggers for the lab.
+    Add more information later.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    lubridate,
+    tidyr,
+    readr,
+    tibble,
+    stringr,
+    forcats,
+    readxl, 
+    tidyselect,
+    magrittr
+RoxygenNote: 6.1.1
