@@ -17,17 +17,17 @@ The contents of the tibble depend on the data file.
 
 \strong{Returned variables}
 \describe{
-  \item{`datetime`}{Date-time}
-  \item{`mgl`}{Dissolved oxygen (mg / L)}
-  \item{`wind`}{Wind speed (m / s)}
-  \item{`gust`}{Wind gust (m / s)}
-  \item{`ppfd`}{Photosynthetically active radiation, PAR (μmol photons / m^2^ / L)}
-  \item{`insolation`}{Insolation (W / m^2^)}
-  \item{`mbar`}{Depth (mbar)}
-  \item{`kPA` or `psi`}{Air pressure at sea-level (kPa or psi)}
-  \item{`hr_conductance`}{High range conductivity (μS / cm)}
-  \item{`spc`}{Specific conductance (μS / cm)}
-  \item{`temperature`}{Water temperature (°C)}
+  \item{datetime}{Date-time}
+  \item{mgl}{Dissolved oxygen (mg / L)}
+  \item{wind}{Wind speed (m / s)}
+  \item{gust}{Wind gust (m / s)}
+  \item{ppfd}{Photosynthetically active radiation, PAR (μmol photons / m^2 / L)}
+  \item{insolation}{Insolation (W / m^2)}
+  \item{mbar}{Depth (mbar)}
+  \item{kPA or psi}{Air pressure at sea-level (kPa or psi)}
+  \item{hr_conductance}{High range conductivity (μS / cm)}
+  \item{spc}{Specific conductance (μS / cm)}
+  \item{temperature}{Water temperature (°C)}
 }
 }
 \description{

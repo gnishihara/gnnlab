@@ -18,14 +18,14 @@ The contents of the tibble depend on the data file.
 
 \strong{Returned variables}
 \describe{
-   \item{`datetime`}{Date-time}
-   \item{`speed`}{Current speed (cm / s)}
-   \item{`dir`}{Current direction (radians)}
-   \item{`ew`}{East-West velocity (cm / s)}
-   \item{`ns`}{North-South velocity (cm / s)}
-   \item{`chla`}{Chlorophyll-a (μg / L)}
-   \item{`turbidity`}{Turbidity (FTU, Formazin Nephelometric Units)}
-   \item{`temperature`}{Water temperature (°C)}
+   \item{datetime}{Date-time}
+   \item{speed}{Current speed (cm / s)}
+   \item{dir}{Current direction (radians)}
+   \item{ew}{East-West velocity (cm / s)}
+   \item{ns}{North-South velocity (cm / s)}
+   \item{chla}{Chlorophyll-a (μg / L)}
+   \item{turbidity}{Turbidity (FTU, Formazin Nephelometric Units)}
+   \item{temperature}{Water temperature (°C)}
 }
 }
 \description{

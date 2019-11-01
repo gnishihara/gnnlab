@@ -17,8 +17,8 @@ A tibble containing the data.
 
 \strong{Returned variables}
 \describe{
-\item{`datetime`}{Date-time}
-\item{`ppfd`}{Uncalibrated photosynthetically active radiation (-)}
+\item{datetime}{Date-time}
+\item{ppfd}{Uncalibrated photosynthetically active radiation (-)}
 }
 }
 \description{
