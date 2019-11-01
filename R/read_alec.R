@@ -65,7 +65,7 @@ read_alec = function(filename, ...) {
   # and one for the filename.
   attributes(out)$loggertype = str_extract(id, "T[GK].*[B]")
   attributes(out)$filename = basename(filename)
-  out %>%
+  out = out %>%
     select(ymd = matches("YYYY"),
            hms = matches("hh:mm"),
            speed = matches("Velo"),
@@ -85,7 +85,14 @@ read_alec = function(filename, ...) {
     mutate_at(vars(matches("chla")), ~(ifelse(((. < 0) | (. > 400)), NA, .))) %>%
     mutate_at(vars(matches("turbidity")), ~(ifelse(((. < 0) | (. > 1000)), NA, .))) %>%
     mutate_at(vars(matches("vx|vy")), ~(ifelse(abs(.) > 200, NA, .))) %>%
-    mutate_at(vars(matches("temperature")), ~(ifelse(((. < 0) | (. > 40)), NA, .))) %>%
-    mutate_at(vars(-matches("datetime")), ~(ifelse((is.na(vx)|is.na(vy)|is.na(temperature)), NA, .))) %>%
-    select(-matches("vx|vy"))
+    mutate_at(vars(matches("temperature")), ~(ifelse(((. < 0) | (. > 40)), NA, .)))
+
+  chk = colnames(out)
+  if("vx" %in% chk) {
+    out %>%
+      mutate_at(vars(-matches("datetime")), ~(ifelse((is.na(vx)|is.na(vy)|is.na(temperature)), NA, .))) %>%
+      select(-matches("vx|vy"))
+  } else {
+    out
+  }
 }
