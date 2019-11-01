@@ -78,8 +78,8 @@ read_alec = function(filename, ...) {
            turbidity = matches("Turb\\[ppm\\]"),
            temperature = matches("Temp\\[")) %>%
     mutate(datetime = paste(.data$ymd, .data$hms)) %>%
-    mutate(datetime = ymd_hms(.data$datetime),
-           dir = dir / 360 * 2*pi) %>%
+    mutate(datetime = ymd_hms(.data$datetime)) %>%
+    mutate_at(vars(matches("dir")), ~(. / 360 * 2*pi)) %>%
     select(-.data$ymd, -.data$hms) %>%
     select(.data$datetime, everything()) %>%
     mutate_at(vars(matches("chla")), ~(ifelse(((. < 0) | (. > 400)), NA, .))) %>%
