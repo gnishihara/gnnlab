@@ -51,7 +51,7 @@
 #' df %>% filter(str_detect(fnames, "Temperature")) %>% slice(1) %>% pull(fnames) %>% read_onset()
 #' }
 #'
-read_onset  = function(filename, ...) {
+read_onset  = function(filename, locale = Sys.getlocale("LC_TIME"), ...) {
   test_file = system(paste("file --brief", filename), intern = TRUE)
   if(grepl("Zip", test_file)) {
     out = read_xlsx(filename, skip = 1, ...)
@@ -75,7 +75,7 @@ read_onset  = function(filename, ...) {
            hr_conductance = matches("高範囲|High"),
            spc = matches("Specific"),
            psu = matches("ppt")) %>%
-    mutate(datetime = parse_date_time(.data$datetime, "mdyT*")) %>%
+    mutate(datetime = parse_date_time(.data$datetime, "mdyT*", locale = locale)) %>%
     mutate_at(vars(-.data$datetime), ~(ifelse(. < 0, NA, .))) %>%
     mutate_at(vars(matches("mgl|temperature")), ~(ifelse(. > 40, NA, .)))
 }
