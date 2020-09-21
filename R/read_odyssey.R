@@ -46,7 +46,7 @@ read_odyssey = function(filename, ...) {
   attributes(out)$filename = basename(filename)
   out %>%
     mutate(datetime = paste(.data$date, .data$time)) %>%
-    mutate(datetime = parse_date_time(.data$datetime, "dmyT*")) %>%
+    mutate(datetime = parse_date_time(.data$datetime, "dmyT")) %>%
     select(.data$datetime, ppfd = raw) %>% drop_na() %>%
     mutate(ppfd = ifelse(.data$ppfd < 0, NA, .data$ppfd))
 }
