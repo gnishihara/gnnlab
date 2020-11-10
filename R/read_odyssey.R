@@ -34,10 +34,10 @@
 read_odyssey = function(filename, ...) {
   test_file = system(paste("file --brief", filename), intern = TRUE)
   cnames = c("N", "date", "time", "raw", "calib")
-  if(grepl("Zip", test_file)) {
+  if(grepl("xlsx", tools::file_ext(filename))) {
     ctypes = c("numeric", "text", "text", "numeric", "numeric")
     out = read_xlsx(filename, skip = 7, col_names = cnames, col_types=ctypes)
-  } else if(grepl("ASCII | Unicode", test_file)) {
+  } else if(grepl("CSV | Unicode", test_file)) {
     ctypes = c("nccnn")
     out = suppressMessages(read_csv(filename, skip = 7, col_names = cnames, col_types=ctypes))
   } else {

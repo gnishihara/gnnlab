@@ -13,6 +13,7 @@
 #'
 #' @param filename the name of the file which the data are to be read from. It can be a CSV file or an XLSX file.
 #' @param locale the locale to bue used. On linux systems use system("locale -a") to list all of the installed locales. Typically for our systems in the lab, use ja_JP.UTF-8 for a Japanese locale and en_US.UTF-8 for an American English locale.
+#' The parameter default is locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8")
 #' @param ... further arguments passed to read_csv or read_xlsx
 #' @return
 #' A tibble containing the data.
@@ -52,12 +53,12 @@
 #' df %>% filter(str_detect(fnames, "Temperature")) %>% slice(1) %>% pull(fnames) %>% read_onset()
 #' }
 #'
-read_onset  = function(filename, locale = Sys.getlocale("LC_TIME"), ...) {
-  test_file = system(paste("file --brief", filename), intern = TRUE)
-  if(grepl("Zip", test_file)) {
+read_onset  = function(filename, locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8"), ...) {
+
+  if(grepl("xlsx", tools::file_ext(filename))) {
     out = read_xlsx(filename, skip = 1, ...)
-  } else if(grepl("ASCII | Unicode", test_file)) {
-    out = suppressMessages(read_csv(filename, skip = 1, ...))
+  } else if(grepl("csv", tools::file_ext(filename))) {
+    out = suppressMessages(read_csv(filename, skip = 1,  ...))
   } else {
     stop(paste(filename, "is not a readable file."))
   }
@@ -76,7 +77,7 @@ read_onset  = function(filename, locale = Sys.getlocale("LC_TIME"), ...) {
            hr_conductance = matches("高範囲|High"),
            spc = matches("Specific"),
            psu = matches("ppt")) %>%
-    mutate(datetime = parse_date_time(.data$datetime, "mdyT*", locale = locale)) %>%
+    mutate(datetime = parse_date_time(.data$datetime, "mdyT", locale = locale)) %>%
     mutate_at(vars(-.data$datetime), ~(ifelse(. < 0, NA, .))) %>%
     mutate_at(vars(matches("mgl|temperature")), ~(ifelse(. > 40, NA, .)))
 }

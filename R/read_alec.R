@@ -46,15 +46,18 @@
 #'
 read_alec = function(filename, ...) {
   test_file = system(paste("file --brief", filename), intern = TRUE)
-  if(grepl("Zip", test_file)){
+
+  if(grepl("xlsx", tools::file_ext(filename))){
     # If it is xlsx, read as an xlsx file.
     id = read_xlsx(filename, range = "A13")
     out = read_xlsx(filename, skip = 36)
-  } else if(grepl("ASCII", test_file)) {
+  } else if(grepl("extended-ASCII", test_file)) {
     # If it is csv, read as a csv file.
+
     id = read_lines(filename, skip = 12, n_max = 1)
     out = suppressMessages(read_csv(filename, skip = 36, locale = locale(encoding = "CP932")))
-  } else if(grepl("UTF-8", test_file)) {
+
+  } else if(grepl("CSV", test_file)) {
     id = read_lines(filename, skip = 12, n_max = 1)
     out = suppressMessages(read_csv(filename, skip = 36))
   } else {
