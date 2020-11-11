@@ -41,6 +41,7 @@
 #' @importFrom readxl read_xlsx
 #' @importFrom readr read_csv
 #' @importFrom lubridate parse_date_time
+#' @importFrom tools file_ext
 #'
 #' @examples
 #' \dontrun{
@@ -55,9 +56,9 @@
 #'
 read_onset  = function(filename, locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8"), ...) {
 
-  if(grepl("xlsx", tools::file_ext(filename))) {
+  if(grepl("xlsx", file_ext(filename), ignore.case = TRUE)) {
     out = read_xlsx(filename, skip = 1, ...)
-  } else if(grepl("csv", tools::file_ext(filename))) {
+  } else if(grepl("csv", file_ext(filename), ignore.case = TRUE)) {
     out = suppressMessages(read_csv(filename, skip = 1,  ...))
   } else {
     stop(paste(filename, "is not a readable file."))

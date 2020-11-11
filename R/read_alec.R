@@ -36,6 +36,8 @@
 #' @importFrom readr locale
 #' @importFrom lubridate ymd_hms
 #' @importFrom stringr str_extract
+#' @importFrom tools file_ext
+#' @importFrom stringi stri_detect_regex
 #' @examples
 #' \dontrun{
 #' fnames = dir("~/Lab_Data/kawatea/", full.names=TRUE, recursive=TRUE)
@@ -47,48 +49,53 @@
 read_alec = function(filename, ...) {
   test_file = system(paste("file --brief", filename), intern = TRUE)
 
-  if(grepl("xlsx", tools::file_ext(filename))){
+  if(!stri_detect_regex(rawToChar(readBin(filename, "raw", 10)), "(Alec)")) {
+    stop(paste(filename, "is not an Alec Data file."))
+  }
+
+  if(grepl("xlsx", file_ext(filename), ignore.case = TRUE)){
     # If it is xlsx, read as an xlsx file.
     id = read_xlsx(filename, range = "A13")
     out = read_xlsx(filename, skip = 36)
-  } else if(grepl("extended-ASCII", test_file)) {
+  } else if(grepl("csv", file_ext(filename), ignore.case = TRUE)) {
     # If it is csv, read as a csv file.
+    enc = get_encoding(filename)
+    id = read_lines(filename, n_max = 40, locale = locale(encoding = enc))
+    skip = which(stri_detect_regex(id, "^\\[Item\\]"))
+    id = id[stri_detect_regex(id, "^Inst_Type")]
 
-    id = read_lines(filename, skip = 12, n_max = 1)
-    out = suppressMessages(read_csv(filename, skip = 36, locale = locale(encoding = "CP932")))
-
-  } else if(grepl("CSV", test_file)) {
-    id = read_lines(filename, skip = 12, n_max = 1)
-    out = suppressMessages(read_csv(filename, skip = 36))
+    out = suppressMessages(read_csv(filename, skip = skip, locale = locale(encoding = enc)))
   } else {
     # Exit if not either.
     stop(paste(filename, "is not a readable file."))
   }
+
   # Add two attributes to the data frame. One for the type of data (CKU or CEM)
   # and one for the filename.
   attributes(out)$loggertype = str_extract(id, "T[GK].*[B]")
   attributes(out)$filename = basename(filename)
-  out = out %>%
-    select(ymd = matches("YYYY"),
-           hms = matches("hh:mm"),
-           speed = matches("Velo"),
-           dir = matches("Dir"),
-           ew = matches("EW"),
-           ns = matches("NS"),
-           vx = matches("Vel X\\["),
-           vy = matches("Vel Y\\["),
-           chla = matches("\\[\\s+\\]"),
-           turbidity = matches("Turb\\[ppm\\]"),
-           temperature = matches("Temp\\[")) %>%
-    mutate(datetime = paste(.data$ymd, .data$hms)) %>%
-    mutate(datetime = ymd_hms(.data$datetime)) %>%
-    mutate_at(vars(matches("dir")), ~(. / 360 * 2*pi)) %>%
-    select(-.data$ymd, -.data$hms) %>%
-    select(.data$datetime, everything()) %>%
-    mutate_at(vars(matches("chla")), ~(ifelse(((. < 0) | (. > 400)), NA, .))) %>%
-    mutate_at(vars(matches("turbidity")), ~(ifelse(((. < 0) | (. > 1000)), NA, .))) %>%
-    mutate_at(vars(matches("vx|vy")), ~(ifelse(abs(.) > 200, NA, .))) %>%
-    mutate_at(vars(matches("temperature")), ~(ifelse(((. < 0) | (. > 40)), NA, .)))
+  {out = out %>%
+      select(ymd = matches("YYYY"),
+             hms = matches("hh:mm"),
+             speed = matches("Velo"),
+             dir = matches("Dir"),
+             ew = matches("EW"),
+             ns = matches("NS"),
+             vx = matches("Vel X\\["),
+             vy = matches("Vel Y\\["),
+             chla = matches("\\[\\s+\\]"),
+             turbidity = matches("Turb\\[ppm\\]"),
+             temperature = matches("Temp\\[")) %>%
+      mutate(datetime = paste(.data$ymd, .data$hms)) %>%
+      mutate(datetime = ymd_hms(.data$datetime)) %>%
+      mutate_at(vars(matches("dir")), ~(. / 360 * 2*pi)) %>%
+      select(-.data$ymd, -.data$hms) %>%
+      select(.data$datetime, everything()) %>%
+      mutate_at(vars(matches("chla")), ~(ifelse(((. < 0) | (. > 400)), NA, .))) %>%
+      mutate_at(vars(matches("turbidity")), ~(ifelse(((. < 0) | (. > 1000)), NA, .))) %>%
+      mutate_at(vars(matches("vx|vy")), ~(ifelse(abs(.) > 200, NA, .))) %>%
+      mutate_at(vars(matches("temperature")), ~(ifelse(((. < 0) | (. > 40)), NA, .)))
+  }
 
   chk = colnames(out)
   if("vx" %in% chk) {

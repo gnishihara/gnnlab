@@ -24,6 +24,7 @@
 #' @importFrom readr read_csv
 #' @importFrom tidyr drop_na
 #' @importFrom lubridate parse_date_time
+#' @importFrom tools file_ext
 #' @examples
 #' \dontrun{
 #' fnames = dir("~/Lab_Data/kawatea/", full.names=TRUE, recursive=TRUE)
@@ -32,12 +33,12 @@
 #' }
 #'
 read_odyssey = function(filename, ...) {
-  test_file = system(paste("file --brief", filename), intern = TRUE)
+  # test_file = system(paste("file --brief", filename), intern = TRUE)
   cnames = c("N", "date", "time", "raw", "calib")
-  if(grepl("xlsx", tools::file_ext(filename))) {
+  if(grepl("xlsx", file_ext(filename), ignore.case = TRUE)) {
     ctypes = c("numeric", "text", "text", "numeric", "numeric")
     out = read_xlsx(filename, skip = 7, col_names = cnames, col_types=ctypes)
-  } else if(grepl("CSV | Unicode", test_file)) {
+  } else if(grepl("csv", file_ext(filename), ignore.case = TRUE)) {
     ctypes = c("nccnn")
     out = suppressMessages(read_csv(filename, skip = 7, col_names = cnames, col_types=ctypes))
   } else {
