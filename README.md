@@ -3,16 +3,20 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+
+水圏植物生態学研究室用の便利な関数をまとめています。
+研究室でよく使う, オンセット社のデータロガー読み込み関数, アレック電子のCompact CEMとCKUの読み込み関数, 
+Dataflow Systems の Odyssey 光量子量ロガーの読み込み関数を準備しています。
 This package contains a number of useful functions to read data files from the following 
 data loggers:
 
 **Onset Inc.**
 
-* U20 Water depth datalogger
-* U24 Conductivity/Salinity datalogger
-* U26 Dissolved oxygen datalogger
-* Various temperature dataloggers
-* USB Microstation equipped with 
+* U20 Water depth datalogger（水深ロガー）
+* U24 Conductivity/Salinity datalogger（塩分・伝導率ロガー）
+* U26 Dissolved oxygen datalogger（溶存酸素濃度ロガー）
+* Various temperature dataloggers（水温ロガー）
+* USB Microstation equipped with（マイクロステーション, ただし下記のセンサーのみ対応している） 
     (1) Wind speed sensor
     (2) Barometer
     (3) PAR sensor
@@ -20,12 +24,12 @@ data loggers:
 
 **Dataflow Systems**
 
-* Odyssey PAR datalogger
+* Odyssey PAR datalogger（光量子量ロガー）
 
 **Alec Electronics**
 
-* CEM Electromagnetic water velocity datalogger
-* CKU Chlorophyll-a fluorescence and turbidity datalogger
+* CEM Electromagnetic water velocity datalogger（流向流速ロガー）
+* CKU Chlorophyll-a fluorescence and turbidity datalogger（クロロフィル蛍光ロガー）
 
 ## Installation
 
