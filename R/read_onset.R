@@ -27,6 +27,7 @@
 #'   \item{gust}{Wind gust (m / s)}
 #'   \item{ppfd}{Photosynthetically active radiation, PAR (μmol photons / m^2 / L)}
 #'   \item{insolation}{Insolation (W / m^2)}
+#'   \item{lux}{Illuminance (lux)}
 #'   \item{mbar}{Depth (mbar)}
 #'   \item{kPA or psi}{Air pressure at sea-level (kPa or psi)}
 #'   \item{hr_conductance}{High range conductivity (μS / cm)}
@@ -73,6 +74,7 @@ read_onset  = function(filename, locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8"
            gust = matches("突風|Gust"),
            ppfd = matches("PAR"),
            insolation = matches("日射"),
+           lux = matches("光度"),
            kpa = matches("kPa"),
            psi = matches("psi"),
            hr_conductance = matches("高範囲|High"),
