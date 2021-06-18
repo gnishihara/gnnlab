@@ -31,6 +31,11 @@ data loggers:
 * CEM Electromagnetic water velocity datalogger（流向流速ロガー）
 * CKU Chlorophyll-a fluorescence and turbidity datalogger（クロロフィル蛍光ロガー）
 
+## Other functions
+
+* `aseries()` and `bseries()` for paper size dimensions (AとBシリーズの用紙サイズ)
+* `se()` for the standard error (標準誤差)
+
 ## Installation
 
 ``` r
@@ -41,7 +46,7 @@ devtools::install_github("gnishihara/gnnlab")
 
 Check the locale of the system (the server runs on Debian). 
 If the locale is in `en_US` and the data files are in ja_JP.UTF-8,
-then there will be errors in the date stame when reading the file!
+then there will be errors in the date stamp when reading the file!
 
 ``` r
 if(grepl("en_US", Sys.getlocale("LC_TIME"))) { 
