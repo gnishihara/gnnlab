@@ -12,8 +12,9 @@
 #' set to NA.
 #'
 #' @param filename the name of the file which the data are to be read from. It can be a CSV file or an XLSX file.
-#' @param locale the locale to bue used. On linux systems use system("locale -a") to list all of the installed locales. Typically for our systems in the lab, use ja_JP.UTF-8 for a Japanese locale and en_US.UTF-8 for an American English locale.
+#' @param locale the locale to be used. On linux systems use system("locale -a") to list all of the installed locales. Typically for our systems in the lab, use ja_JP.UTF-8 for a Japanese locale and en_US.UTF-8 for an American English locale.
 #' The parameter default is locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8")
+#' @param skip the numeber of lines to skip. Default is 1.
 #' @param ... further arguments passed to read_csv or read_xlsx
 #' @return
 #' A tibble containing the data.
@@ -55,12 +56,12 @@
 #' df %>% filter(str_detect(fnames, "Temperature")) %>% slice(1) %>% pull(fnames) %>% read_onset()
 #' }
 #'
-read_onset  = function(filename, locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8"), ...) {
+read_onset  = function(filename, locale = Sys.setlocale("LC_TIME", "ja_JP.UTF-8"), skip = 1, ...) {
 
   if(grepl("xlsx", file_ext(filename), ignore.case = TRUE)) {
-    out = read_xlsx(filename, skip = 1, ...)
+    out = read_xlsx(filename, skip = skip, ...)
   } else if(grepl("csv", file_ext(filename), ignore.case = TRUE)) {
-    out = suppressMessages(read_csv(filename, skip = 1,  ...))
+    out = suppressMessages(read_csv(filename, skip = skip,  ...))
   } else {
     stop(paste(filename, "is not a readable file."))
   }
