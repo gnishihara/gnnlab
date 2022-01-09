@@ -30,6 +30,7 @@ data loggers:
 
 * CEM Electromagnetic water velocity datalogger（流向流速ロガー）
 * CKU Chlorophyll-a fluorescence and turbidity datalogger（クロロフィル蛍光ロガー）
+* AWH Wave height data logger (波高ロガー)
 
 ## Other functions
 
