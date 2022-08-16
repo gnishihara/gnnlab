@@ -23,11 +23,11 @@ Determine the width and height of the ISO216 A and B series of paper
 }
 \section{Functions}{
 \itemize{
-\item \code{aseries}: A paper size
+\item \code{aseries()}: A paper size
 
-\item \code{bseries}: B paper sizes
+\item \code{bseries()}: B paper sizes
+
 }}
-
 \examples{
 aseries(4) # Return A4 size paper
 bseries(5) # Return B5 size paper

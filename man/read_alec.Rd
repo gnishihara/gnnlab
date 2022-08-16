@@ -2,8 +2,7 @@
 % Please edit documentation in R/read_alec.R
 \name{read_alec}
 \alias{read_alec}
-\title{Read ALEC instruments data
-This function can read the CEM and CKU data files.}
+\title{Read ALEC instruments data}
 \usage{
 read_alec(filename, ...)
 }
@@ -25,13 +24,15 @@ The contents of the tibble depend on the data file.
    \item{ns}{North-South velocity (cm / s)}
    \item{chla}{Chlorophyll-a (μg / L)}
    \item{turbidity}{Turbidity (FTU, Formazin Nephelometric Units)}
-   \item{temperature}{Water temperature (°C)}
+   \item{temperature}{Water temperature (\eqn{^\circ}{degrees}C)}
 }
 }
 \description{
-For CEM files, when the absolute x- and y- velocities are below 0 or above 200, all data are NA.
+This function can read the CEM and CKU data files.
 }
 \details{
+For CEM files, when the absolute x- and y- velocities are below 0 or above 200, all data are NA.
+
 For CKU files, when the chlorophyll data is below 0 or above 400, the value is set to NA.
 When turbidity is below 0 or above 1000, the value is set to NA.
 

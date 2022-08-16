@@ -1,6 +1,6 @@
 #' Calculate the standard error of the values in x.
 #' If na.rm is TRUE then the missing values are removed before
-#' calcuating the error (default).
+#' calculating the error (default).
 #'
 #' @param x a numeric vector
 #' @param na.rm logical. Should missing values be removed? Default na.rm = TRUE.

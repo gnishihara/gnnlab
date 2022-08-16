@@ -6,7 +6,7 @@
 This function can read the AWH data files.
 Note that `options(digits.secs = 4)` might needed to be set to view the subseconds.}
 \usage{
-read_awh(filename, summarisedata = T, ...)
+read_awh(filename, summarisedata = FALSE, ...)
 }
 \arguments{
 \item{filename}{the name of the file which the data are to be read from. It must be a CSV file}
@@ -29,7 +29,4 @@ A tibble containing the data.
 Read ALEC AWH data
 This function can read the AWH data files.
 Note that `options(digits.secs = 4)` might needed to be set to view the subseconds.
-}
-\examples{
-
 }

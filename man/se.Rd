@@ -4,7 +4,7 @@
 \alias{se}
 \title{Calculate the standard error of the values in x.
 If na.rm is TRUE then the missing values are removed before
-calcuating the error (default).}
+calculating the error (default).}
 \usage{
 se(x, na.rm = TRUE)
 }
@@ -19,7 +19,7 @@ a vector containing the width and height
 \description{
 Calculate the standard error of the values in x.
 If na.rm is TRUE then the missing values are removed before
-calcuating the error (default).
+calculating the error (default).
 }
 \examples{
 se(c(4,1,2,3,4))

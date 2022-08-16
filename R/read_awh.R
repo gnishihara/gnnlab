@@ -30,7 +30,6 @@
 #' @importFrom stringr str_split
 #' @importFrom tools file_ext
 #' @importFrom stringi stri_detect_regex
-#' @examples
 #'
 
 read_awh = function(filename,   summarisedata = FALSE, ...) {

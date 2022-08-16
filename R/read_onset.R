@@ -26,14 +26,14 @@
 #'   \item{mgl}{Dissolved oxygen (mg / L)}
 #'   \item{wind}{Wind speed (m / s)}
 #'   \item{gust}{Wind gust (m / s)}
-#'   \item{ppfd}{Photosynthetically active radiation, PAR (μmol photons / m^2 / L)}
+#'   \item{ppfd}{Photosynthetically active radiation, PAR (\eqn{\mu}mol photons / m^2 / L)}
 #'   \item{insolation}{Insolation (W / m^2)}
 #'   \item{lux}{Illuminance (lux)}
 #'   \item{mbar}{Depth (mbar)}
 #'   \item{kPA or psi}{Air pressure at sea-level (kPa or psi)}
-#'   \item{hr_conductance}{High range conductivity (μS / cm)}
-#'   \item{spc}{Specific conductance (μS / cm)}
-#'   \item{temperature}{Water temperature (°C)}
+#'   \item{hr_conductance}{High range conductivity (\eqn{\mu}S / cm)}
+#'   \item{spc}{Specific conductance (\eqn{\mu}S / cm)}
+#'   \item{temperature}{Water temperature (\eqn{^\circ}{degrees}C)}
 #' }
 #' @export
 #'

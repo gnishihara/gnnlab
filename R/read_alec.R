@@ -1,4 +1,5 @@
 #' Read ALEC instruments data
+#'
 #' This function can read the CEM and CKU data files.
 #'
 #' For CEM files, when the absolute x- and y- velocities are below 0 or above 200, all data are NA.
@@ -23,7 +24,7 @@
 #'    \item{ns}{North-South velocity (cm / s)}
 #'    \item{chla}{Chlorophyll-a (μg / L)}
 #'    \item{turbidity}{Turbidity (FTU, Formazin Nephelometric Units)}
-#'    \item{temperature}{Water temperature (°C)}
+#'    \item{temperature}{Water temperature (\eqn{^\circ}{degrees}C)}
 #' }
 #' @export
 #'
