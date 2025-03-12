@@ -13,8 +13,8 @@ calculate_rate = function(data,
                           response,
                           k = 24,
                           bs = "cr") {
-  gcontrol = gam.control(maxit = 500,
-                         newton = list(maxNstep = 10, maxHalf = 50))
+  gcontrol = mgcv::gam.control(maxit = 500,
+                               newton = list(maxNstep = 10, maxHalf = 50))
 
   if (!rlang::has_name(data, "H")) {
     stop("Error: The variable 'H' is missing.", call. = FALSE)
@@ -25,19 +25,25 @@ calculate_rate = function(data,
     stop("Error: The variable 'H' must be numeric and contain values between 0 and 24.",
          call. = FALSE)
   }
-  response <- enquo(response)
-  if (!rlang::has_name(data, rlang::as_name(response))) {
+  # Allow response to be passed as unquoted text or string
+  response <- tryCatch(
+    { rlang::ensym(response) },  # If unquoted, capture symbol
+    error = function(e) { rlang::sym(response) }  # If quoted (character), convert to symbol
+  )
+
+  # Ensure response variable exists in data
+  if (!rlang::has_name(data, as.character(response))) {
     stop(
       paste0(
         "Error: The variable '",
-        rlang::as_name(response),
+        as.character(response),
         "' is missing from the provided data."
       ),
       call. = FALSE
     )
   }
 
-  formula <- rlang::new_formula(lhs = enquo(response), rhs = expr(s(H, k = !!k, bs = !!bs)))
+  formula <- rlang::new_formula(lhs = rlang::enquo(response), rhs = rlang::expr(s(H, k = !!k, bs = !!bs)))
   safe_gam = purrr::possibly(mgcv::gam, otherwise = NULL)
 
   out = safe_gam(
@@ -50,10 +56,9 @@ calculate_rate = function(data,
   if (is.null(out)) {
     return(NULL)
   } else {
-    fit = fitted_values(mout) |> pull(.fitted)
-    rate = derivatives(out, n = 144) |> pull(.derivative)
-    data = data |> mutate(fit, rate)
+    fit = gratia::fitted_values(out)$.fitted
+    rate = gratia::derivatives(out, n = 144)$.derivative
+    data = data |> dplyr::mutate(fit, rate)
     return(data)
   }
-
 }
