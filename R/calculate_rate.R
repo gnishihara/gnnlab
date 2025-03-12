@@ -43,7 +43,7 @@ calculate_rate = function(data,
     )
   }
 
-  formula <- rlang::new_formula(lhs = rlang::enquo(response), rhs = rlang::expr(s(H, k = !!k, bs = !!bs)))
+  formula <- rlang::new_formula(lhs = response, rhs = rlang::expr(s(H, k = !!k, bs = !!bs)))
   safe_gam = purrr::possibly(mgcv::gam, otherwise = NULL)
 
   out = safe_gam(
@@ -56,9 +56,11 @@ calculate_rate = function(data,
   if (is.null(out)) {
     return(NULL)
   } else {
-    fit = gratia::fitted_values(out)$.fitted
-    rate = gratia::derivatives(out, n = 144)$.derivative
-    data = data |> dplyr::mutate(fit, rate)
+    newdata = tibble(H = seq(0, 24 - 1/6, by = 1/6))
+    fit = gratia::fitted_values(out, data = newdata)$.fitted
+    rate = gratia::derivatives(out, data = newdata, n = 144)$.derivative
+    newdata = newdata |> dplyr::mutate(fit, rate)
+    data = full_join(data, newdata, by = "H")
     return(data)
   }
 }
