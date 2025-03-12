@@ -45,6 +45,7 @@ masstransfer = function(windspeed,
 #' @param height = 1 is the height of the wind sensor in m
 #'
 #' @return a vector of fluxes with units g / m2 / hr. Positive values indicate flux out of the water surface and negative values indicate flux into the water surface.
+#' @export
 
 masstransfer2 = function(windspeed,
                          temperature,
