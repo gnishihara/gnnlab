@@ -9,25 +9,22 @@
 #' @importFrom suntools crepuscule
 
 calculate_dawn_dusk = function(datetime, gpscoord) {
-  # 光のデータが十分じゃない時、日中の長さを求められないので、
-  # 薄暮と薄明は crepuscule で求める
-  # maptools のパッケージが必要
-  # solarDep = 6 is civil twilight （市民薄明）
-  # solarDep = 18 is astronomical twilight （天文薄明）
+  # solarDep = 6 is civil twilight
+  # solarDep = 18 is astronomical twilight
 
   if (!is.matrix(gpscoord)) {
-    stop("gpscoord は行列として渡す [x, y]")
+    stop("gpscoord should be a matrix [latitude, longitude].")
   }
 
   tz(datetime) = "Japan"
-  dawn = crepuscule(
+  dawn = suntools::crepuscule(
     gpscoord,
     datetime,
     solarDep = 6,
     direction = "dawn",
     POSIXct = T
   )[, 2]
-  dusk = crepuscule(
+  dusk = suntools::crepuscule(
     gpscoord,
     datetime,
     solarDep = 6,
