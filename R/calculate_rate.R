@@ -56,11 +56,15 @@ calculate_rate = function(data,
   if (is.null(out)) {
     return(NULL)
   } else {
-    newdata = tibble(H = seq(0, 24 - 1/6, by = 1/6))
+    start = lubridate::floor_date(data$datetime[1], "hour")
+    end = start + lubridate::hours(24) - lubridate::minutes(10)
+    tau = seq(start, end, by = "10 min")
+    H = lubridate::hour(tau) + lubridate::minute(tau) / 60
+    newdata =  tibble(H = H)
     fit = gratia::fitted_values(out, data = newdata)$.fitted
     rate = gratia::derivatives(out, data = newdata, n = 144)$.derivative
-    newdata = newdata |> dplyr::mutate(fit, rate)
+    newdata = newdata |> mutate(fit, rate)
     data = full_join(data, newdata, by = "H")
     return(data)
-  }
+   }
 }
