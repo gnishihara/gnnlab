@@ -75,3 +75,10 @@ df = tibble(fnames)
 str_subset(fnames, "DO") %>% read_onset()
 ```
 
+## Memo
+
+``` r
+devtools::document() # To use roxygen2 to create the man files.
+devtools::build() # To build the package.
+devtools::install() # To install locally.
+```
