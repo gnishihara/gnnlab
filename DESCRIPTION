@@ -1,6 +1,6 @@
 Package: gnnlab
 Title: Commonly Used Functions for the Lab
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: person("Greg", "Nishihara", email = "gnishihara@gmail.com", role = c("aut", "cre"))
 Maintainer: Greg Nishihara <gnishihara@gmail.com>
 Description: Many functions to read the data loggers for the lab.
@@ -21,4 +21,4 @@ Imports:
     magrittr,
     stringi,
     tools
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3

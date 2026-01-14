@@ -32,6 +32,10 @@ data loggers:
 * CKU Chlorophyll-a fluorescence and turbidity datalogger（クロロフィル蛍光ロガー）
 * AWH Wave height data logger (波高ロガー)
 
+**Xylem**
+
+* Castaway CTD
+
 ## Other functions
 
 * `aseries()` and `bseries()` for paper size dimensions (AとBシリーズの用紙サイズ)

@@ -22,6 +22,9 @@
 #' @importFrom tools file_ext
 #' @importFrom magick image_read_pdf
 #' @importFrom magick image_write
+#' @importFrom ggplot2 last_plot
+#' @importFrom stringr str_replace
+
 
 save_plot = function(pdfname, plot = last_plot(),
                      width = 100, height = 100, units = "mm",

@@ -10,6 +10,7 @@
 #' @examples
 #' se(c(4,1,2,3,4))
 #' @export
+#' @importFrom stats sd
 
 se = function(x, na.rm = TRUE) {
 
